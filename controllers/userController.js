@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
 const salt = bcrypt.genSaltSync(10);
@@ -23,5 +24,16 @@ exports.login = async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username });
   const comparePassword = bcrypt.compareSync(password, user.password);
-  res.json(comparePassword);
+
+  if (comparePassword) {
+    const accessToken = jwt.sign({
+      user: {
+        username: user.username,
+        email: user.email,
+        id: user.id,
+      },
+    });
+  } else {
+    res.status(400).json("Wrong credentials");
+  }
 };
