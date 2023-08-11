@@ -4,13 +4,15 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: [true, "Username required"],
-    unique: true,
+    index: true,
+    unique: [true, "Username already taken!"],
     min: 4,
   },
   email: {
     type: String,
     required: [true, "User email required"],
-    unique: true,
+    index: true,
+    unique: [true, "User email already used!"],
   },
   password: {
     type: String,
