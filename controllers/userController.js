@@ -1,3 +1,5 @@
+const User = require("../models/userModel");
+
 exports.register = async (req, res) => {
   const { username, email, password } = req.body;
   try {
