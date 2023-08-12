@@ -11,7 +11,7 @@ connectDB();
 const app = express();
 
 //Middlewares
-app.use(cors());
+app.use(cors({ credentials: true, origin: "localhost:3000" }));
 app.use(express.json());
 
 //Mounting router
