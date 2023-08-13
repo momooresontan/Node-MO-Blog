@@ -58,5 +58,5 @@ exports.getMe = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
-  res.cookie("token", "").json(ok);
+  res.cookie("token", "").json("ok");
 };
