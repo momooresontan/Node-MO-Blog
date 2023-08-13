@@ -48,3 +48,15 @@ exports.login = async (req, res) => {
     res.status(400).json("Wrong credentials");
   }
 };
+
+exports.getMe = async (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, {}, (err, info) => {
+    if (err) throw err;
+    res.json(info);
+  });
+};
+
+exports.logout = async (req, res) => {
+  res.cookie("token", "").json(ok);
+};
