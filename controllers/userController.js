@@ -41,7 +41,10 @@ exports.login = async (req, res) => {
       { expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN },
       (err, token) => {
         if (err) throw err;
-        res.cookie("token", token).json("ok");
+        res.cookie("token", token).json({
+          id: userDoc._id,
+          username,
+        });
       }
     );
   } else {
