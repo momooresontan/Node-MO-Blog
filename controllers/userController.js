@@ -34,7 +34,7 @@ exports.login = async (req, res) => {
         user: {
           username: user.username,
           email: user.email,
-          id: user.id,
+          id: user._id,
         },
       },
       process.env.ACCESS_TOKEN_SECRET,
@@ -42,8 +42,9 @@ exports.login = async (req, res) => {
       (err, token) => {
         if (err) throw err;
         res.cookie("token", token).json({
-          id: userDoc._id,
-          username,
+          id: user._id,
+          email: user.email,
+          username: user.username,
         });
       }
     );
@@ -61,5 +62,6 @@ exports.getMe = async (req, res) => {
 };
 
 exports.logout = async (req, res) => {
-  res.cookie("token", "").json("ok");
+  const { token } = req.cookies;
+  res.cookie("token", token).json("ok");
 };
