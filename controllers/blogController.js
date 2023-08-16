@@ -19,3 +19,8 @@ exports.post = async (req, res) => {
 
   res.json(blog);
 };
+
+exports.getAllBlogs = async (req, res) => {
+  const blogs = await Blog.find();
+  res.json(blogs);
+};
