@@ -1,10 +1,13 @@
 const express = require("express");
+const multer = require("multer");
+
+const uploadMiddleware = multer({ dest: "uploads/" });
 
 const {
   getMe,
   login,
   logout,
-  //post,
+  post,
   register,
 } = require("../controllers/userController");
 
@@ -18,6 +21,6 @@ router.get("/getMe", getMe);
 
 router.post("/logout", logout);
 
-// router.post("/post", uploadMiddleware.single("file"), post);
+router.post("/post", uploadMiddleware.single("file"), post);
 
 module.exports = router;
