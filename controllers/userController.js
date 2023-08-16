@@ -65,3 +65,5 @@ exports.logout = async (req, res) => {
   const { token } = req.cookies;
   res.cookie("token", token).json("ok");
 };
+
+exports.post = async (req, res) => {};
