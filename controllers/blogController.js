@@ -1,4 +1,5 @@
 const fs = require("fs");
+const Blog = require("../models/blogModel");
 
 exports.post = async (req, res) => {
   const { originalname, path } = req.file;
@@ -8,5 +9,13 @@ exports.post = async (req, res) => {
   const newPath = `${path}.${ext}`;
   fs.renameSync(path, newPath);
 
-  res.json({ ext });
+  const { title, summary, content } = req.body;
+  const blog = await Blog.create({
+    title,
+    summary,
+    content,
+    imageCover: newPath,
+  });
+
+  res.json(blog);
 };
