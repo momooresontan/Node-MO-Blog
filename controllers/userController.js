@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
+
 const User = require("../models/userModel");
 
 dotenv.config();
@@ -67,8 +69,12 @@ exports.logout = async (req, res) => {
 };
 
 exports.post = async (req, res) => {
-  const { originalname } = req.file;
+  const { originalname, path } = req.file;
   const parts = originalname.split(".");
   const ext = parts[parts.length - 1];
+
+  const newPath = `${path}.${ext}`;
+  fs.renameSync(path, newPath);
+
   res.json({ ext });
 };
