@@ -67,5 +67,8 @@ exports.logout = async (req, res) => {
 };
 
 exports.post = async (req, res) => {
-  res.json({ files: req.file });
+  const { originalname } = req.file;
+  const parts = originalname.split(".");
+  const ext = parts[parts.length - 1];
+  res.json({ ext });
 };
