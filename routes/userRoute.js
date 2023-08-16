@@ -3,12 +3,13 @@ const {
   getMe,
   login,
   logout,
+  post,
   register,
 } = require("../controllers/userController");
 
 const multer = require("multer");
 
-const uploadMiddleware = multer({ dest: "uploads/" });
+const uploadMiddleware = multer({ dest: "../uploads/" });
 
 const router = express.Router();
 
@@ -20,6 +21,6 @@ router.get("/getMe", getMe);
 
 router.post("/logout", logout);
 
-router.post("/post", uploadMiddleware.single("file"));
+router.post("/post", uploadMiddleware.single("file"), post);
 
 module.exports = router;
