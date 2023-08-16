@@ -5,6 +5,7 @@ const express = require("express");
 
 const connectDB = require("./config/dbConnect");
 const userRouter = require("./routes/userRoute");
+const blogRouter = require("./routes/blogRoute");
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(cookieParser());
 
 //Mounting router
 app.use("/", userRouter);
+app.use("/", blogRouter);
 
 const PORT = process.env.PORT || 4000;
 
