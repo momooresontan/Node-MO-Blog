@@ -21,6 +21,8 @@ router.get("/getMe", getMe);
 
 router.post("/logout", logout);
 
-router.post("/post", uploadMiddleware.single("file"), post);
+router.post("/post", uploadMiddleware.single("file"), (req, res) => {
+  res.json({ files: req.file });
+});
 
 module.exports = router;
