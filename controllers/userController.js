@@ -66,6 +66,6 @@ exports.logout = async (req, res) => {
   res.cookie("token", token).json("ok");
 };
 
-exports.post = async (req, res) => {
-  res.json({ files: req.file });
-};
+// exports.post = async (req, res) => {
+//   res.json({ files: req.file });
+// };
