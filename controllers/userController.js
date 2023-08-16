@@ -67,5 +67,5 @@ exports.logout = async (req, res) => {
 };
 
 exports.post = async (req, res) => {
-  res.json(req.files);
+  res.json({ files: req.file });
 };
