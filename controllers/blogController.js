@@ -33,3 +33,9 @@ exports.getAllBlogs = async (req, res) => {
     .limit(20);
   res.json(blogs);
 };
+
+exports.getBlogById = async (req, res) => {
+  const { id } = req.params;
+  const blog = await Blog.findById(id).populate("author", ["username"]);
+  res.json(blog);
+};
