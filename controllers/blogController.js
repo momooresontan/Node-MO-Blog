@@ -1,4 +1,5 @@
 const fs = require("fs");
+const jwt = require("jsonwebtoken");
 const Blog = require("../models/blogModel");
 
 exports.post = async (req, res) => {
@@ -9,15 +10,20 @@ exports.post = async (req, res) => {
   const newPath = `${path}.${ext}`;
   fs.renameSync(path, newPath);
 
-  const { title, summary, content } = req.body;
-  const blog = await Blog.create({
-    title,
-    summary,
-    content,
-    imageCover: newPath,
-  });
+  const { token } = req.cookies;
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, {}, async (err, info) => {
+    if (err) throw err;
+    const { title, summary, content } = req.body;
+    const blog = await Blog.create({
+      title,
+      summary,
+      content,
+      imageCover: newPath,
+      author: info.id,
+    });
 
-  res.json(blog);
+    res.json(blog);
+  });
 };
 
 exports.getAllBlogs = async (req, res) => {
