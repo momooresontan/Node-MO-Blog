@@ -9,6 +9,10 @@ const blogSchema = new mongoose.Schema(
     summary: String,
     content: String,
     imageCover: String,
+    author: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+    },
   },
   {
     timestamps: true,
