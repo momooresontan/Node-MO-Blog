@@ -19,7 +19,7 @@ exports.post = async (req, res) => {
       summary,
       content,
       imageCover: newPath,
-      author: info.id,
+      author: info.user.id,
     });
 
     res.json(blog);
@@ -27,6 +27,6 @@ exports.post = async (req, res) => {
 };
 
 exports.getAllBlogs = async (req, res) => {
-  const blogs = await Blog.find();
+  const blogs = await Blog.find().populate("author", ["username"]);
   res.json(blogs);
 };

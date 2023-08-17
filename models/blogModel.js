@@ -12,6 +12,7 @@ const blogSchema = new mongoose.Schema(
     author: {
       type: mongoose.Types.ObjectId,
       ref: "User",
+      //required: [true, "Blog must have an author!"],
     },
   },
   {
