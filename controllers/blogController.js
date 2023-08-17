@@ -27,6 +27,9 @@ exports.post = async (req, res) => {
 };
 
 exports.getAllBlogs = async (req, res) => {
-  const blogs = await Blog.find().populate("author", ["username"]);
+  const blogs = await Blog.find()
+    .populate("author", ["username"])
+    .sort({ createdAt: -1 })
+    .limit(20);
   res.json(blogs);
 };
