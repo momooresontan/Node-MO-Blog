@@ -71,15 +71,8 @@ exports.updatePost = async (req, res) => {
           content,
           imageCover: newPath ? newPath : blog.imageCover,
         });
-        // const blog = await Blog.create({
-        //   title,
-        //   summary,
-        //   content,
-        //   imageCover: newPath,
-        //   author: info.user.id,
-        // });
 
-        //res.json(blog);
+        res.json(blog);
       }
     );
   }
