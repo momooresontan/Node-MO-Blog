@@ -59,8 +59,18 @@ exports.updatePost = async (req, res) => {
         if (err) throw err;
         const { title, summary, content, id } = req.body;
         const blog = await Blog.findById(id);
-        const isAuthor = blog.author === info.user.id;
-        res.json({ isAuthor, info, blog });
+        const isAuthor =
+          JSON.stringify(blog.author) === JSON.stringify(info.user.id);
+        if (!isAuthor) {
+          return res.status(400).json("You are not the author!");
+        }
+
+        await blog.updateOne({
+          title,
+          summary,
+          content,
+          imageCover: newPath ? newPath : blog.imageCover,
+        });
         // const blog = await Blog.create({
         //   title,
         //   summary,
