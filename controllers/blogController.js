@@ -39,3 +39,7 @@ exports.getBlogById = async (req, res) => {
   const blog = await Blog.findById(id).populate("author", ["username"]);
   res.json(blog);
 };
+
+exports.updatePost = async (req, res) => {
+  res.json(req.file);
+};
