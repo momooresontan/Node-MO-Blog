@@ -41,5 +41,36 @@ exports.getBlogById = async (req, res) => {
 };
 
 exports.updatePost = async (req, res) => {
-  res.json(req.file);
+  let newPath = null;
+  if (req.file) {
+    const { originalname, path } = req.file;
+    const parts = originalname.split(".");
+    const ext = parts[parts.length - 1];
+
+    newPath = `${path}.${ext}`;
+    fs.renameSync(path, newPath);
+
+    const { token } = req.cookies;
+    jwt.verify(
+      token,
+      process.env.ACCESS_TOKEN_SECRET,
+      {},
+      async (err, info) => {
+        if (err) throw err;
+        const { title, summary, content, id } = req.body;
+        const blog = await Blog.findById(id);
+        const isAuthor = blog.author === info.user.id;
+        res.json({ isAuthor, info, blog });
+        // const blog = await Blog.create({
+        //   title,
+        //   summary,
+        //   content,
+        //   imageCover: newPath,
+        //   author: info.user.id,
+        // });
+
+        //res.json(blog);
+      }
+    );
+  }
 };

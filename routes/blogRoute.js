@@ -18,6 +18,6 @@ router.get("/post", getAllBlogs);
 
 router.get("/post/:id", getBlogById);
 
-router.put("/post/", uploadMiddleware.single("file"), updatePost);
+router.put("/post", uploadMiddleware.single("file"), updatePost);
 
 module.exports = router;
